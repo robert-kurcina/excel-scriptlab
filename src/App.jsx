@@ -22,7 +22,7 @@ function App() {
   return (
     <div id="application">
       <h1>Given</h1>
-      <p>Given a list of trait, target, level, created a nicely formatted string for presentation as a MEST Tactics traits paragraph.</p>
+      <p>Given a list of trait, target, level, created a nicely formatted string for presentation as a <em>MEST Tactics</em> traits paragraph.</p>
       <textarea id="inputs" value={text} onChange={setText}></textarea>
       <div id="controls">
         <button onClick={handleProcess}>PROCESS</button>
@@ -30,7 +30,7 @@ function App() {
       </div>
 
       <h1>Output</h1>
-      <p>Click the PROCESS button to see the formatted result of the input text from above.</p>
+      <p>Click the <strong>PROCESS</strong> button to see the formatted result of the input text from above.</p>
       <code>{output}</code>
     </div>
   )

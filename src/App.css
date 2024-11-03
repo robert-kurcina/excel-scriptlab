@@ -19,13 +19,12 @@ p {
 code {
     border: 1px solid gray;
     padding: 10px;
-    margin: 10px;
 }
 
 textarea {
     display: flex;
     height: 100px;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 button {
@@ -33,5 +32,5 @@ button {
     border: 1px solid gray;
     padding: 4px;
     font-weight: bold;
-    margin-left: 10px;
+    margin-right: 10px;
 }
