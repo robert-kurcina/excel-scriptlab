@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import './App.css'
+
+import { useState } from 'react'
 import traitAndLevels from './parser';
 import inputStr from './sample.input';
 
