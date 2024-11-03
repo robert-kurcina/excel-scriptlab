@@ -1,23 +1,22 @@
 import { useState } from 'react'
 import './App.css'
 import traitAndLevels from './parser';
+import inputStr from './sample.input';
 
-const inputStr = `
-[Exert X > List], Blast:Major, 1, [Exert X > List], Augment, 1, 
-Slippery X, ., 3, [Arc X], ., 4, ., ., 0, ., ., 0, [Addicted X > Type], Narcotics, 2, 
-., ., 0, ., ., 0, ., ., 0, ., ., 0, Aura X > List, Acid-1, 0`;
+function handleClick(givenStr){
+  let resultStr = traitAndLevels(givenStr);
+}
 
 function App() {
-  let resultStr = traitAndLevels(inputStr);
-
   return (
-    <>
+    <div id="application">
       <h1>Given</h1>
-      <code>{inputStr}</code>
+      <textarea>{inputStr}</textarea>
+      <button onClick={handleClick(inputStr)}>PROCESS</button>
 
       <h1>Output</h1>
-      <code>{resultStr}</code>
-    </>
+      <code>.</code>
+    </div>
   )
 }
 
