@@ -19,11 +19,16 @@ function App() {
     setOutput(".");
   }
 
+  function handleEdit(e){
+    const value = e.target.value || "";
+    setText(value);
+  }
+
   return (
     <div id="application">
       <h1>Given</h1>
       <p>Given a list of trait, target, level, created a nicely formatted string for presentation as a <em>MEST Tactics</em> traits paragraph.</p>
-      <textarea id="inputs" value={text} onChange={setText}></textarea>
+      <textarea id="inputs" value={text} onChange={handleEdit}></textarea>
       <div id="controls">
         <button onClick={handleProcess}>PROCESS</button>
         <button onClick={handleReset}>RESET</button>
