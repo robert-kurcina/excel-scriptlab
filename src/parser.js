@@ -3,7 +3,7 @@
  * @param {number} lvl to replace the 'X'
  * @returns 
  */
-function replaceLevel(key, lvl){
+function replaceLevel(key, lvl) {
     const regex = /X/;
     let appendDot = ". ";
     let text;
@@ -14,12 +14,28 @@ function replaceLevel(key, lvl){
 
     if (lvl >= 2) {
         text = key.replace(regex, lvl) + appendDot;
-    } 
+    }
     else {
         text = key.replace(regex, "") + appendDot;
     }
 
     return text;
+}
+
+/**
+ * Ensures that the setList entries are unique
+ * @param {array} setList
+ * @returns array sorted and unique
+ */
+function ensureUnique(setList) {
+    function onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
+    }
+
+    const unique = setList.filter(onlyUnique);
+    const sorted = setList.sort();
+
+    return sorted;
 }
 
 /**
@@ -30,19 +46,20 @@ function replaceLevel(key, lvl){
  * @param {array} setList 
  * @returns string modified text with inserts for any setList entries 
  */
-function replaceSetTarget(text, setList){
-    if (setList.length == 0){ return text ; }
-    
+function replaceSetTarget(text, setList) {
+    if (setList.length == 0) { return text; }
+
     const regex = /\> \w+/;
     let result;
-    
-    if (setList.length == 1){
+
+    if (setList.length == 1) {
         result = text.replace(regex, `> ${setList}`);
     }
     else {
-        result = text.replace(regex, `> {${setList.join(", ")}}`);
+        const sortUnique = ensureUnique(setList);
+        result = text.replace(regex, `> {${sortUnique.join(", ")}}`);
     }
-    
+
     return result;
 }
 
@@ -52,7 +69,7 @@ function replaceSetTarget(text, setList){
  * @param {array} givenList 
  * @returns object hashMap of traits where each key: { lvl: number, setList: [keyword, ..]}
  */
-function createMapping(givenList){
+function createMapping(givenList) {
     const elems = givenList.split(",");
     const trimmed = elems.map((elem) => elem.trim());
     const hashMap = {};
@@ -68,8 +85,8 @@ function createMapping(givenList){
         }
 
         hashMap[traitKey].lvl += traitLevel;
-        if (setKey.length && setKey != "."){ 
-            hashMap[traitKey].setList.push(setKey); 
+        if (setKey.length && setKey != ".") {
+            hashMap[traitKey].setList.push(setKey);
         }
     }
 
@@ -81,7 +98,7 @@ function createMapping(givenList){
  * @param {object} hashMap 
  * @returns array of traits
  */
-function buildResult(hashMap){
+function buildResult(hashMap) {
     const result = [];
     let lastKey = "";
     var keys = Object.keys(hashMap);
@@ -107,7 +124,7 @@ function buildResult(hashMap){
  * @param {array} entries 
  * @returns string of joined values
  */
-function buildStitch(entries){
+function buildStitch(entries) {
     let resultStr = entries.join("");
     let index = resultStr.indexOf("[");
     let stitch = "";
