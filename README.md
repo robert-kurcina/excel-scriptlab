@@ -1,8 +1,16 @@
-# React + Vite
+# MEST Tactics :: Excel ScriptLab Parser
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a ViteJS + ReactJS Web application. 
 
-Currently, two official plugins are available:
+```
+cd ~/projects
+git clone https://github.com/robert-kurcina/excel-scriptlab
+cd excel-scriptlab
+npm install
+npm run dev
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Open the browser to `localhost:5172` to play with the functionality.
+
+
+
