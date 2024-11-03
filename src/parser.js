@@ -3,8 +3,39 @@
  * @param {number} lvl to replace the 'X'
  * @returns 
  */
-function replaceX(lvl){
+function replaceLevel(key, lvl){
+    const regex = /X/;
+    let appendDot = ". ";
+    let text;
 
+    if (key.indexOf("[") >= 0) {
+        appendDot = "";
+    }
+
+    if (lvl >= 2) {
+        text = key.replace(regex, lvl) + appendDot;
+    } 
+    else {
+        text = key.replace(regex, "") + appendDot;
+    }
+
+    return text;
+}
+
+function replaceSetTarget(text, setList){
+    if (setList.length == 0){ return text ; }
+    
+    const regex = /\> \w+/;
+    let result;
+    
+    if (setList.length == 1){
+        result = text.replace(regex, `> ${setList}`);
+    }
+    else {
+        result = text.replace(regex, `> {${setList.join(", ")}}`);
+    }
+    
+    return result;
 }
 
 function createMapping(givenList){
@@ -14,7 +45,7 @@ function createMapping(givenList){
 
     for (var i = 0; i < trimmed.length; i += 3) {
         var traitKey = trimmed[i];
-        var setKey = trimmed[i + 1];
+        var setKey = trimmed[i + 1] || "";
         var traitLevel = 1 * trimmed[i + 2];
 
         if (traitKey == ".") { continue; }
@@ -23,7 +54,7 @@ function createMapping(givenList){
         }
 
         hashMap[traitKey].lvl += traitLevel;
-        if (setKey?.length && setKey != "."){ 
+        if (setKey.length && setKey != "."){ 
             hashMap[traitKey].setList.push(setKey); 
         }
     }
@@ -32,31 +63,19 @@ function createMapping(givenList){
 }
 
 function buildResult(hashMap){
+    const result = [];
+    let lastKey = "";
     var keys = Object.keys(hashMap);
     keys = keys.sort();
 
-    const result = [];
-    let lastKey = "";
     for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        var lvl = hashMap[key].lvl;
-        let appendDot = ". ";
-        let text;
+        const key = keys[i];
+        const lvl = hashMap[key].lvl;
+        const setList = hashMap[key].setList;
+        const text = replaceLevel(key, lvl);
+        const output = replaceSetTarget(text, setList);
 
-        if (key.indexOf("[") >= 0) {
-            appendDot = "";
-        }
-
-        if (lvl >= 2) {
-            const regex = /X/i;
-            text = key.replace(regex, lvl) + appendDot;
-        } 
-        else {
-            const regex = / X/i;
-            text = key.replace(regex, "") + appendDot;
-        }
-        
-        result.push(text);
+        result.push(output);
         lastKey = key;
     }
 
@@ -87,9 +106,9 @@ function buildStitch(result){
 function traitAndLevels(namePlusLevelArr) {
     const hashMap = createMapping(namePlusLevelArr);
     const result = buildResult(hashMap);
-    const stiched = buildStitch(result);
+    const stitched = buildStitch(result);
 
-    return stiched;
+    return stitched;
 }
 
 export { traitAndLevels }
