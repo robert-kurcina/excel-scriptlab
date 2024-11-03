@@ -32,6 +32,8 @@ textarea {
     display: flex;
     height: 100px;
     margin-bottom: 10px;
+    resize: vertical;
+    max-height: 200px;
 }
 
 button {
