@@ -22,6 +22,14 @@ function replaceLevel(key, lvl){
     return text;
 }
 
+/**
+ * Replaces the place-holder text after the angle-bracket match for "Foo > Bar" 
+ * with a flattened string built from setList. The setList is delimited with commas
+ * and is within curly braces if there are at least two values.
+ * @param {string} text 
+ * @param {array} setList 
+ * @returns string modified text with inserts for any setList entries 
+ */
 function replaceSetTarget(text, setList){
     if (setList.length == 0){ return text ; }
     
@@ -38,6 +46,12 @@ function replaceSetTarget(text, setList){
     return result;
 }
 
+/**
+ * Takes the list of entries, which must be sets of three values being trait
+ * name, sub-trait keyword, trait level, and build a hashMap result
+ * @param {array} givenList 
+ * @returns object hashMap of traits where each key: { lvl: number, setList: [keyword, ..]}
+ */
 function createMapping(givenList){
     const elems = givenList.split(",");
     const trimmed = elems.map((elem) => elem.trim());
@@ -62,6 +76,11 @@ function createMapping(givenList){
     return hashMap;
 }
 
+/**
+ * ensure that the hashMap of values provided are deconstructed into an array of traits
+ * @param {object} hashMap 
+ * @returns array of traits
+ */
 function buildResult(hashMap){
     const result = [];
     let lastKey = "";
@@ -82,8 +101,14 @@ function buildResult(hashMap){
     return result;
 }
 
-function buildStitch(result){
-    let resultStr = result.join("");
+/**
+ * Joins the trait entries, and ensures that the disability traits which
+ * are delimited within square-brackets are at the front of the result string
+ * @param {array} entries 
+ * @returns string of joined values
+ */
+function buildStitch(entries){
+    let resultStr = entries.join("");
     let index = resultStr.indexOf("[");
     let stitch = "";
 
@@ -101,7 +126,7 @@ function buildStitch(result){
 /**
  * Calculates the Trait levels
  * @param {string} namePlusLevelArr text string with a series of pairs; string, num, string, num, ..
- * @returns The volume of the sphere.
+ * @returns string of all traits listed in alphabetical order
  */
 function traitAndLevels(namePlusLevelArr) {
     const hashMap = createMapping(namePlusLevelArr);
@@ -111,4 +136,4 @@ function traitAndLevels(namePlusLevelArr) {
     return stitched;
 }
 
-export { traitAndLevels }
+export default traitAndLevels
