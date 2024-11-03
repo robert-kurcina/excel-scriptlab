@@ -12,5 +12,9 @@ npm run dev
 
 Open the browser to `localhost:5172` to play with the functionality.
 
+## Default Page
+There's just a single page at the moment. It looks like this:
+
+![Screenshot](./public/screenshot-main.png?raw=true "ScriptLab Parser")
 
 
