@@ -137,7 +137,7 @@ function buildStitch(entries) {
         stitch = last + ". " + sub;
     }
 
-    return stitch;
+    return stitch || resultStr;
 }
 
 /**
